@@ -5,6 +5,7 @@ WORKDIR /app
 # Скопировать launch.ipynb и my_infer.py из текущей директории
 COPY launch.ipynb /app/
 COPY my_infer.py /app/
+COPY infer.py /app/
 
 # Установим системные зависимости
 RUN apt-get update && apt-get install -y \
@@ -27,14 +28,17 @@ RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
 # Клонируем и устанавливаем kimi-audio напрямую как "библиотеку"
-RUN git clone https://github.com/MoonshotAI/Kimi-Audio.git /app/kimi-audio && \
-    cd /app/kimi-audio && \
-    git submodule update --init --recursive && \
+RUN git clone https://github.com/MoonshotAI/Kimi-Audio.git /app/kimi-audio
+
+WORKDIR /app/kimi-audio
+
+RUN git submodule update --init --recursive && \
     pip install -r requirements.txt && \
     pip install flash-attn --no-build-isolation --use-pep517
 # Устанавливаем Jupyter
 RUN pip install jupyter
 # Если в Kimi-Audio появится setup.py или pyproject.toml — можно будет делать так:
 # RUN pip install "git+https://github.com/MoonshotAI/Kimi-Audio.git"
+WORKDIR /app
 
 CMD ["/bin/bash"]
