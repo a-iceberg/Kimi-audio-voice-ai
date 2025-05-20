@@ -27,12 +27,13 @@ RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
 # Клонируем и устанавливаем kimi-audio напрямую как "библиотеку"
-RUN git clone https://github.com/MoonshotAI/Kimi-Audio.git /opt/kimi-audio && \
-    cd /opt/kimi-audio && \
+RUN git clone https://github.com/MoonshotAI/Kimi-Audio.git /app/kimi-audio && \
+    cd /app/kimi-audio && \
     git submodule update --init --recursive && \
     pip install -r requirements.txt && \
-    pip install flash-attn --no-build-isolation
-
+    pip install flash-attn --no-build-isolation --use-pep517
+# Устанавливаем Jupyter
+RUN pip install jupyter
 # Если в Kimi-Audio появится setup.py или pyproject.toml — можно будет делать так:
 # RUN pip install "git+https://github.com/MoonshotAI/Kimi-Audio.git"
 
