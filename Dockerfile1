@@ -1,0 +1,45 @@
+FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu22.04
+
+WORKDIR /app
+
+COPY . /app/
+RUN apt-get update && apt-get install -y \
+    python3.10 \
+    python3.10-dev \
+    curl \
+    sox \
+    openssh-server \
+    ffmpeg \
+    libgl1-mesa-glx \
+    git \
+    ninja-build \
+    && rm -rf /var/lib/apt/lists/*
+
+# 安装 pip
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
+    && python3.10 get-pip.py \
+    && rm get-pip.py
+# Обновляем pip и устанавливаем необходимые библиотеки
+RUN pip3 install --upgrade pip && \
+    pip3 install torch==2.4.1 torchaudio==2.4.1 \
+    --extra-index-url https://download.pytorch.org/whl/cpu \
+    -r requirements.txt
+# Устанавливаем flash-attn для CPU
+RUN pip install https://github.com/Dao-AILab/flash-attention/releases/download/v2.7.4.post1/flash_attn-2.7.4.post1+cu12torch2.4cxx11abiFALSE-cp310-cp310-linux_x86_64.whl 
+# Устанавливаем Jupyter
+RUN pip install jupyter
+
+# ENV HF_HOME=/root/.cache/huggingface
+
+# alias python3 as python
+RUN ln -s /usr/bin/python3 /usr/bin/python
+
+CMD ["/bin/bash"]
+
+
+# -------- flash-attention (мягкая сборка) ----------
+#ENV FLASH_ATTENTION_SKIP_CUDA_BUILD=TRUE
+#RUN git clone --depth 1 https://github.com/Dao-AILab/flash-attention.git /tmp/flash-attn && \
+#    cd /tmp/flash-attn && \
+#    python setup.py install || \
+#    (echo "⚠️  flash-attn не собрался (нет CUDA) — продолжаем" && true)
