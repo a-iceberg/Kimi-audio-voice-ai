@@ -27,7 +27,7 @@ RUN pip install flash-attn --no-build-isolation
 
 # Установка Jupyter
 RUN pip install jupyter
-#
+
 # Устанавливаем зависимости проекта
 COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
