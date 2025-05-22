@@ -23,7 +23,7 @@ RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
 RUN pip install --upgrade pip
 RUN pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu128
 
-#RUN pip install flash-attn --no-build-isolation
+RUN pip install flash-attn --no-build-isolation
 
 # Установка Jupyter
 RUN pip install jupyter
@@ -31,11 +31,6 @@ RUN pip install jupyter
 # Устанавливаем зависимости проекта
 COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
-
-#================================
-RUN pip install flash-attn --no-build-isolation
-#================================
-
 
 # Установка Kimi-Audio из GitHub (автоматически установит зависимости из pyproject.toml)
 RUN pip install "git+https://github.com/MoonshotAI/Kimi-Audio.git"
