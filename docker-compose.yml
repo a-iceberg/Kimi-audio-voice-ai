@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  kimi_voice_ai:
+    container_name: kimi_voice_ai
+    build:
+      context: .
+      dockerfile: Dockerfile
+    runtime: nvidia
+    environment:
+      - TZ=Europe/Moscow
+      - NVIDIA_VISIBLE_DEVICES=all
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    volumes:
+      - .:/app
+    network_mode: host
+    stdin_open: true
+    tty: true
