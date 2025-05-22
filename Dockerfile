@@ -23,14 +23,17 @@ RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py \
 RUN pip install --upgrade pip
 RUN pip install --pre torch torchvision torchaudio --index-url https://download.pytorch.org/whl/nightly/cu128
 
-RUN pip install flash-attn --no-build-isolation
-
 # Установка Jupyter
 RUN pip install jupyter
 
 # Устанавливаем зависимости проекта
 COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
+
+#================================
+#RUN pip install flash-attn --no-build-isolation
+RUN pip install https://github.com/kingbri1/flash-attention/releases/download/v2.7.4.post1/flash_attn-2.7.4.post1+cu128torch2.7.0cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
+#================================
 
 # Установка Kimi-Audio из GitHub (автоматически установит зависимости из pyproject.toml)
 RUN pip install "git+https://github.com/MoonshotAI/Kimi-Audio.git"
