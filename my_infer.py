@@ -5,8 +5,8 @@ import torch # Ensure torch is imported if needed for device placement
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-# Локальный путь к модели (убрали 'snapshots')
-model_path = "huggingface_cache/hub/models--moonshotai--Kimi-Audio-7B-Instruct/snapshots/a574f67664cb0443ce08fd6827eb7e2170c94140/"
+# Локальный путь к модели 
+model_path = "/root/.cache/huggingface/hub/models--moonshotai--Kimi-Audio-7B-Instruct/snapshots/a574f67664cb0443ce08fd6827eb7e2170c94140/"
 
 # Загружаем модель из локальной папки
 model = KimiAudio(model_path=model_path, load_detokenizer=True)

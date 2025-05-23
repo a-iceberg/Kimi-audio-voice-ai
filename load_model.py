@@ -1,5 +1,5 @@
 import os
-os.environ["HF_HOME"] = "/app/huggingface_cache"
+os.environ["HF_HOME"] = "/root/.cache/huggingface"
 
 from kimia_infer.api.kimia import KimiAudio
 import os
