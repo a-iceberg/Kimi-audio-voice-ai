@@ -28,4 +28,18 @@ RUN pip install "git+https://github.com/MoonshotAI/Kimi-Audio.git"
 
 # Копируем файлы проекта
 
-CMD ["bash", "-c", "jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root --no-browser & bash"]
+# Jupyter
+#CMD ["bash", "-c", "jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root --no-browser & bash"]
+
+#uvicorn
+#CMD ["bash", "-c", "exec uvicorn app:app --host 0.0.0.0 --port 5000 --reload"]
+
+#скрипт, который запускает и Uvicorn, и Jupyter
+#RUN echo '#!/bin/bash\n\
+#uvicorn app:app --host 0.0.0.0 --port 5000 --no-server-header --no-date-header &\n\
+#exec jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root --no-browser\n' > /start.sh && \
+#    chmod +x /start.sh
+#CMD ["/start.sh"]
+
+
+WORKDIR /app

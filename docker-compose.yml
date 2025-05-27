@@ -15,8 +15,13 @@ services:
         reservations:
           devices:
             - capabilities: [gpu]
+    ports:
+      - "5000:5000"  # FastAPI
+      - "8888:8888"  # Jupyter
     volumes:
       - .:/app
-    network_mode: host
     stdin_open: true
     tty: true
+
+    # запуск FastAPI
+    command: ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "5000", "--reload"]
