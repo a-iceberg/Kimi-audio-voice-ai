@@ -12,4 +12,3 @@ model = KimiAudio(
 )
 
 print("модель загружена!")
-
