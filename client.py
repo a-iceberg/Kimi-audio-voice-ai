@@ -40,6 +40,6 @@ if __name__ == "__main__":
         audio_path=WAV_IN,
         prompt="ответь на вопрос",
         max_tokens=60,
-        response_type="both"   # поменяйте на "audio" или "both" когда нужно
+        response_type="both"   # поменяйте на "text" или "both" когда нужно
     )
     print("Модель ответила текстом:\n", text)
