@@ -65,7 +65,7 @@ async def generate(
     response_type: str = Form(
         "both", description='text | audio | both', regex="^(text|audio|both)$"
     ),
-    max_new_tokens: int = Form(20, ge=1, le=128),
+    #max_new_tokens: int = Form(20, ge=1, le=128),
 ):
     req_id = uuid.uuid4().hex[:8]
     log.info("[%s] Запрос от %s | response_type=%s | prompt_len=%d",
@@ -78,7 +78,7 @@ async def generate(
     log.debug("[%s] Входной WAV сохранён во %s (%.1f KB)",
               req_id, audio_path, os.path.getsize(audio_path)/1024)
 
-    sampling = SAMPLING_DEFAULT | {"max_new_tokens": max_new_tokens}
+    sampling = SAMPLING_DEFAULT #| {"max_new_tokens": max_new_tokens}
     messages = []
     if prompt:
         messages.append({"role": "user", "message_type": "text", "content": prompt})

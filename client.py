@@ -1,12 +1,12 @@
 import base64, requests, json
 
 API_URL = "http://10.2.6.13:5000/generate"
-WAV_IN  = "recording.wav"
+WAV_IN  = "input/english1.wav"
 WAV_OUT = "reply.wav"
 
 def ask_kimi(audio_path: str,
              prompt: str = "",
-             max_tokens: int = 40,
+             #max_tokens: int = 40,
              response_type: str = "both") -> str | None:
     """Возвращает текст (str) или None, если текста нет."""
     with open(audio_path, "rb") as f:
@@ -14,7 +14,7 @@ def ask_kimi(audio_path: str,
         data  = {
             "prompt": prompt,
             "response_type": response_type,  # text | both
-            "max_new_tokens": str(max_tokens),
+            #"max_new_tokens": str(max_tokens),
         }
         resp = requests.post(API_URL, files=files, data=data, timeout=300)
         resp.raise_for_status()
@@ -39,7 +39,7 @@ if __name__ == "__main__":
     text = ask_kimi(
         audio_path=WAV_IN,
         prompt="ответь на вопрос",
-        max_tokens=60,
+        #max_tokens=60,
         response_type="both"   # поменяйте на "text" или "both" когда нужно
     )
     print("Модель ответила текстом:\n", text)
