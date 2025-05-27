@@ -1,3 +1,4 @@
+# dockerfile
 FROM nvidia/cuda:12.8.1-cudnn-devel-ubuntu22.04
 
 WORKDIR /app
@@ -19,7 +20,8 @@ RUN pip install jupyter
 COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
-# установка flash attention
+
+# flash-attn
 RUN pip install https://github.com/kingbri1/flash-attention/releases/download/v2.7.4.post1/flash_attn-2.7.4.post1+cu128torch2.7.0cxx11abiFALSE-cp310-cp310-linux_x86_64.whl
 
 
@@ -31,9 +33,6 @@ RUN pip install "git+https://github.com/MoonshotAI/Kimi-Audio.git"
 # Jupyter
 #CMD ["bash", "-c", "jupyter notebook --ip=0.0.0.0 --port=8888 --allow-root --no-browser & bash"]
 
-#uvicorn
-#CMD ["bash", "-c", "exec uvicorn app:app --host 0.0.0.0 --port 5000 --reload"]
-
 #скрипт, который запускает и Uvicorn, и Jupyter
 #RUN echo '#!/bin/bash\n\
 #uvicorn app:app --host 0.0.0.0 --port 5000 --no-server-header --no-date-header &\n\
@@ -41,5 +40,6 @@ RUN pip install "git+https://github.com/MoonshotAI/Kimi-Audio.git"
 #    chmod +x /start.sh
 #CMD ["/start.sh"]
 
-
+#uvicorn
+#CMD ["bash", "-c", "exec uvicorn app:app --host 0.0.0.0 --port 5000 --reload"]
 WORKDIR /app
